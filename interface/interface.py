@@ -8,28 +8,23 @@ class Interface:
     self.screen = Screen(self.printClass)
 
   def init(self):
-    self.printClass.clean_screen()
-    self.printClass.print_big_name()
+    while True:
+      self.printClass.clean_screen()
+      self.printClass.print_big_name()
 
-    print()
-    print()
+      print()
+      print()
 
-    print(' [1] Treinar frases ')
-    print(' [2] Editar assuntos ')
-    print(' [3] Executar Query ')
+      print(' [1] Treinar frases ')
+      print(' [2] Editar assuntos ')
+      print(' [3] Executar Query ')
+      print(' [4] Sair')
 
-    print()
+      print()
 
-    result = input(' ')
+      result = int(input(' '))
 
-    answers = {
-      '1': lambda: print(),
-      '2': lambda: print(),
-      '3': lambda: print(),
-    }
+      if result == 4: break
 
-    if result > 0 and self.screen.number_of_screens >= result:
-      self.screen.access(result)
-
-    else:
-      self.init()
+      if result > 0 and self.screen.number_of_screens >= result:
+        self.screen.access(result)
