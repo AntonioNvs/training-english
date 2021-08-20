@@ -1,11 +1,14 @@
-from code.theme.theme import get_random_theme
+from database.querys import main, themes, phrases
 from time import sleep
 
 
 class Screen:
-  def __init__(self, printClass) -> None:
+  def __init__(self, printClass, queryClass: main.MainQuerys) -> None:
     self.printClass = printClass
     self.number_of_screens = 3
+
+    self.themeQuery = themes.ThemeQuerys(queryClass)
+    self.phrasesQuery = phrases.PhrasesQuerys(queryClass)
 
   def access(self, screen):
     screens = {
@@ -21,12 +24,20 @@ class Screen:
     while True:
       self.printClass.clean_screen()
 
-      print(f'Tema: {get_random_theme()}          Digite "q" para sair')
+      row_theme = self.themeQuery.select_a_random_theme()
+
+      total_phrase = self.phrasesQuery.number_of_rows()
+
+      print(f'Tema: {row_theme[1]}          Digite "q" para sair')
+      print()
+      print(f'Frases já feitas: {total_phrase}')
       print()
 
       phrase = input(' ')
 
       if phrase.lower() == 'q': break
+
+      self.phrasesQuery.insert(phrase, int(row_theme[0]))
 
   def edit_lectures(self):
     pass
