@@ -1,20 +1,21 @@
 from database.querys import main, themes, phrases
+from interface.print import PrintClass
 from time import sleep
-
+from utils.commands import the_command_is_an_quit
 
 class Screen:
-  def __init__(self, printClass, queryClass: main.MainQuerys) -> None:
+  def __init__(self, printClass: PrintClass, queryClass: main.MainQuerys) -> None:
     self.printClass = printClass
-    self.number_of_screens = 3
+    self.number_of_screens = 2
 
+    self.queryClass = queryClass
     self.themeQuery = themes.ThemeQuerys(queryClass)
     self.phrasesQuery = phrases.PhrasesQuerys(queryClass)
 
   def access(self, screen):
     screens = {
       '1': self.training,
-      '2': self.edit_lectures,
-      '3': self.query
+      '2': self.query
     }
 
     screens[str(screen)]()
@@ -39,8 +40,26 @@ class Screen:
 
       self.phrasesQuery.insert(phrase, int(row_theme[0]))
 
-  def edit_lectures(self):
-    pass
-
   def query(self):
-    pass
+    self.printClass.clean_screen()
+
+    while True:
+      text_query = input(' - ')
+
+      if len(text_query) == 0: continue
+      
+      if the_command_is_an_quit(text_query): break
+
+      print()
+
+      result = self.queryClass.execute_a_query(text_query)
+
+      if len(result['return']) > 0:
+        for row in result['return']:
+          print(row)
+
+      print()
+      print(result['message'])
+
+      print()
+      print()

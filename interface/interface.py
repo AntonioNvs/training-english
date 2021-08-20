@@ -17,15 +17,14 @@ class Interface:
       print()
 
       print(' [1] Treinar frases ')
-      print(' [2] Editar assuntos ')
-      print(' [3] Executar Query ')
-      print(' [4] Sair')
+      print(' [2] Executar Query ')
+      print(' [3] Sair')
 
       print()
 
       result = int(input(' '))
 
-      if result == 4: break
+      if result == 3: break
 
       if result > 0 and self.screen.number_of_screens >= result:
         self.screen.access(result)

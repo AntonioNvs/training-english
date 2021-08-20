@@ -40,14 +40,28 @@ class Database:
     self.cursor.close()
     self.conn.close()
 
-  def execute_command(self, command: str):
+  def execute_command(self, command: str) -> dict:
     self.open_database_and_init_cursor()
 
-    self.cursor.execute(command)
+    message = 'Query executed!'
+
+    try:
+      self.cursor.execute(command)
+    except Exception as e:
+      message = e.args[0]
+
+    rows = []
+    for row in self.cursor.fetchall():
+      rows.append(row)
 
     self.conn.commit()
 
     self.close_database()
+
+    return {
+      'message': message,
+      'return': rows
+    }
 
   def insert_in_table(self, command: str) -> int:
     self.open_database_and_init_cursor()

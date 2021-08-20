@@ -46,3 +46,6 @@ class MainQuerys:
     )
 
     return size[0][0]
+
+  def execute_a_query(self, query: str) -> dict:
+    return self.database.execute_command(query)
