@@ -7,6 +7,7 @@ class PhrasesQuerys:
     self.name_table = 'phrases'
 
   def insert(self, name: str, theme_id: int) -> int:
+    name = name.replace("'", "''")
     return self._querys.insert(self.name_table,
       f"""
         INSERT INTO {self.name_table} (text, date, theme_id) VALUES 

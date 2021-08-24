@@ -6,7 +6,7 @@ from utils.commands import the_command_is_an_quit
 class Screen:
   def __init__(self, printClass: PrintClass, queryClass: main.MainQuerys) -> None:
     self.printClass = printClass
-    self.number_of_screens = 2
+    self.number_of_screens = 3
 
     self.queryClass = queryClass
     self.themeQuery = themes.ThemeQuerys(queryClass)
@@ -15,17 +15,26 @@ class Screen:
   def access(self, screen):
     screens = {
       '1': self.training,
-      '2': self.query
+      '2': self.query,
+      '3': self.add_theme
     }
 
     screens[str(screen)]()
     sleep(0.2)
 
   def training(self):
+    _type = 'random'
+
     while True:
       self.printClass.clean_screen()
 
-      row_theme = self.themeQuery.select_a_random_theme()
+      if _type == 'random':
+        row_theme = self.themeQuery.select_a_random_theme()
+      else:
+        result = self.themeQuery.find_by_name('_type')
+        
+        if len(result) != 0: row_theme = result[0][1]
+        else: row_theme = self.themeQuery.select_a_random_theme() 
 
       total_phrase = self.phrasesQuery.number_of_rows()
 
@@ -36,8 +45,15 @@ class Screen:
 
       phrase = input(' ')
 
-      if phrase.lower() == 'q': break
+      # Se começar com uma interrogação, quer dizer uma prerrogativa para alteração do tema
+      if phrase[0] == '?':
+        _type = phrase[1:]
+        continue
 
+      if the_command_is_an_quit(phrase): break
+
+      if len(phrase) < 5: continue
+      
       self.phrasesQuery.insert(phrase, int(row_theme[0]))
 
   def query(self):
@@ -63,3 +79,10 @@ class Screen:
 
       print()
       print()
+
+  def add_theme(self):
+    self.printClass.clean_screen()
+
+    theme = input(' - ')
+
+    self.themeQuery.insert(theme)

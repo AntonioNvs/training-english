@@ -15,7 +15,7 @@ class Database:
       """
         CREATE TABLE IF NOT EXISTS themes (
           id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-          name varchar(100) NOT NULL,
+          name varchar(200) NOT NULL,
           date DATETIME NOT NULL
         );
       """
@@ -25,7 +25,7 @@ class Database:
       """
         CREATE TABLE IF NOT EXISTS phrases (
           id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-          text varchar(500) NOT NULL,
+          text varchar(1000) NOT NULL,
           date DATETIME NOT NULL,
           theme_id INTEGER NOT NULL,
           FOREIGN KEY(theme_id) REFERENCES themes(id)

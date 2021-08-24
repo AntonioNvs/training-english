@@ -34,4 +34,15 @@ class ThemeQuerys:
     id = random.choice(range(size)) + 1
     
     return self.find_by_id(id)
+
+  def find_by_name(self, name) -> tuple or None:
+    return self._querys.select_with_condition(self.name_table, 
+      f"""
+        SELECT * FROM {self.name_table} WHERE name = '{name}';
+      """
+    )
+
+
+
+
   
