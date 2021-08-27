@@ -21,4 +21,20 @@ class PhrasesQuerys:
   def number_of_rows(self) -> int:
     return self._querys.rows_in_a_table(self.name_table)
 
+  def select_all_phrases_today(self) -> list:
+    result = self.select()
+    
+    current_day = []
+
+    for row in result:
+      current_date = datetime.now()
+      date = datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S.%f')
+
+      if date.year == current_date.year and date.month == current_date.month and date.day == current_date.day:
+        current_day.append(row)
+
+    return current_day
+
+
+
   

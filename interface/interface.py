@@ -23,8 +23,12 @@ class Interface:
 
       print()
 
-      result = int(input(' '))
+      result = input(' ')
+      
+      if not result.isdigit(): continue
 
+      result = int(result)
+      
       if result == 4: break
 
       if result > 0 and self.screen.number_of_screens >= result:

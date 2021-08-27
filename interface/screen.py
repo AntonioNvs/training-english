@@ -23,17 +23,19 @@ class Screen:
     sleep(0.2)
 
   def training(self):
-    _type = 'random'
+    _type = 'Random Theme'
 
     while True:
       self.printClass.clean_screen()
 
+      phrases_make_today = self.phrasesQuery.select_all_phrases_today()
+
       if _type == 'random':
         row_theme = self.themeQuery.select_a_random_theme()
       else:
-        result = self.themeQuery.find_by_name('_type')
-        
-        if len(result) != 0: row_theme = result[0][1]
+        result = self.themeQuery.find_by_name(_type)
+
+        if len(result) != 0: row_theme = result[0]
         else: row_theme = self.themeQuery.select_a_random_theme() 
 
       total_phrase = self.phrasesQuery.number_of_rows()
@@ -41,6 +43,7 @@ class Screen:
       print(f'Tema: {row_theme[1]}          Digite "q" para sair')
       print()
       print(f'Frases já feitas: {total_phrase}')
+      print(f'Frases feitas hoje: {len(phrases_make_today)}')
       print()
 
       phrase = input(' ')

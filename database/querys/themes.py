@@ -35,7 +35,7 @@ class ThemeQuerys:
     
     return self.find_by_id(id)
 
-  def find_by_name(self, name) -> tuple or None:
+  def find_by_name(self, name) -> list:
     return self._querys.select_with_condition(self.name_table, 
       f"""
         SELECT * FROM {self.name_table} WHERE name = '{name}';
