@@ -15,14 +15,14 @@ class PhrasesQuerys:
       """
     )
 
-  def select(self) -> list:
+  def select_all(self) -> list:
     return self._querys.select_all(self.name_table)
 
   def number_of_rows(self) -> int:
     return self._querys.rows_in_a_table(self.name_table)
 
   def select_all_phrases_today(self) -> list:
-    result = self.select()
+    result = self.select_all()
     
     current_day = []
 

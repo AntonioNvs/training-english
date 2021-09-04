@@ -1,11 +1,11 @@
 from interface.print import PrintClass
-from interface.screen import Screen
+from interface.mainScreen import MainScreen
 from database.querys import main
 
 class Interface:
   def __init__(self, queryClass: main.MainQuerys) -> None:
     self.printClass = PrintClass()
-    self.screen = Screen(self.printClass, queryClass)
+    self.screen = MainScreen(self.printClass, queryClass)
     self.queryClass = queryClass
 
   def init(self):
