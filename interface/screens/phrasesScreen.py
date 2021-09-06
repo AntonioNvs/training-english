@@ -9,8 +9,11 @@ class PhrasesScreen:
     self._theme = 'Random Theme'
     self._type = 1
     self.phrases_make_today = self.window.phrasesQuery.select_all_phrases_today()
+    self.all_phrases = [r[1] for r in self.window.phrasesQuery.select_all()]
 
   def execute(self) -> None:
+    frequency = 0
+
     while True:
       self.window.printClass.clean_screen()
 
@@ -29,6 +32,7 @@ class PhrasesScreen:
       print()
       print(f'Frases já feitas: {total_phrases}')
       print(f'Frases feitas hoje: {len(self.phrases_make_today)}')
+      print(f'Índice frequência da última frase: {frequency}')
       print()
 
       if self._type == 1:
@@ -67,6 +71,8 @@ class PhrasesScreen:
       self.window.phrasesQuery.insert(phrase, int(row_theme[0]))
       self.phrases_make_today.append(phrase)
 
+      frequency = self.compare(self.all_phrases, phrase)
+
 
   def select_a_context_phrase(self, threshold: int) -> str:
     all_row_phrases = self.window.phrasesQuery.select_all()
@@ -79,3 +85,5 @@ class PhrasesScreen:
     self.similary = Similary(list_of_sentences)
 
     x, y = self.similary.compare(sentence)
+
+    return round(x / y, 3)

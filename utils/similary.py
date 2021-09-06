@@ -24,7 +24,7 @@ class Similary:
           except KeyError:
             self.frequency[w] = 1
 
-  def compare(self, sentence: str) -> int:
+  def compare(self, sentence: str) -> tuple:
     frequency = 0
     words = 0
 
