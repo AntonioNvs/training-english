@@ -58,4 +58,6 @@ class MainScreen:
 
     theme = input(' - ')
 
+    if the_command_is_an_quit(theme): return
+
     self.themeQuery.insert(theme)

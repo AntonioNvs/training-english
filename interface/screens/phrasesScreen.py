@@ -1,6 +1,6 @@
 from utils.similary import Similary
 from utils.commands import the_command_is_an_quit
-import random
+import random, time
 
 class PhrasesScreen:
   def __init__(self, window) -> None:
@@ -24,7 +24,10 @@ class PhrasesScreen:
         result = self.window.themeQuery.find_by_name(self._theme)
 
         if len(result) != 0: row_theme = result[0]
-        else: row_theme = 'Random Theme' 
+        else:
+          self.error('Esse tema não existe.')
+          row_theme = 'Random Theme'
+          continue
 
       total_phrases = self.window.phrasesQuery.number_of_rows()
 
@@ -44,6 +47,10 @@ class PhrasesScreen:
         print(f'Contexto: {phrase_of_context}')
         print()
 
+      else:
+        self.error('Esse tipo não existe. Colocando tipo 1.')
+        self._type = 1
+
       phrase = input(' ')
 
       # Se começar com uma interrogação, quer dizer uma prerrogativa para alteração do do tema ou do tipo
@@ -60,7 +67,7 @@ class PhrasesScreen:
             try:
               self._type = int(values[1])
             except:
-              pass
+              self.error('Insira um tipo númerico.', 2)
 
         continue
 
@@ -81,9 +88,19 @@ class PhrasesScreen:
 
     return random.choice(all_phrases_selected)
 
+
   def compare(self, list_of_sentences: list, sentence: str) -> int:
     self.similary = Similary(list_of_sentences)
 
     x, y = self.similary.compare(sentence)
 
     return round(x / y, 3)
+
+  
+  def error(self, message: str, sec: int = 2) -> None:
+    self.window.printClass.clean_screen()
+
+    print(message)
+    print()
+
+    time.sleep(sec)
