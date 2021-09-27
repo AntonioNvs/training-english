@@ -1,5 +1,6 @@
 from utils.similary import Similary
 from utils.commands import the_command_is_an_quit
+from utils.quantity import get_average_size
 import random, time
 
 class PhrasesScreen:
@@ -26,7 +27,7 @@ class PhrasesScreen:
         if len(result) != 0: row_theme = result[0]
         else:
           self.error('Esse tema não existe.')
-          row_theme = 'Random Theme'
+          self._theme = 'Random Theme'
           continue
 
       total_phrases = self.window.phrasesQuery.number_of_rows()
@@ -36,6 +37,7 @@ class PhrasesScreen:
       print(f'Frases já feitas: {total_phrases}')
       print(f'Frases feitas hoje: {len(self.phrases_make_today)}')
       print(f'Índice frequência da última frase: {frequency}')
+      print(f'Média de tamanho das frases hoje: {get_average_size(self.phrases_make_today)}')
       print()
 
       if self._type == 1:

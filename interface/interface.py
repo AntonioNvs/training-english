@@ -17,9 +17,10 @@ class Interface:
       print()
 
       print(' [1] Treinar frases ')
-      print(' [2] Executar Query ')
-      print(' [3] Adcionar conceito/tema ')
-      print(' [4] Sair')
+      print(' [2] Treinar perguntas ')
+      print(' [3] Executar Query ')
+      print(' [4] Adcionar conceito/tema ')
+      print(' [5] Sair')
 
       print()
 
@@ -29,7 +30,7 @@ class Interface:
 
       result = int(result)
       
-      if result == 4: break
+      if result == 5: break
 
       if result > 0 and self.screen.number_of_screens >= result:
         self.screen.access(result)

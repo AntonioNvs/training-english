@@ -1,4 +1,5 @@
-from database.querys import main, themes, phrases
+from interface.screens.answerQuestionsScreen import AnswerQuestionsScreen
+from database.querys import main, themes, phrases, answerQuestions
 from interface.screens.phrasesScreen import PhrasesScreen
 from interface.print import PrintClass
 from time import sleep
@@ -7,17 +8,19 @@ from utils.commands import the_command_is_an_quit
 class MainScreen:
   def __init__(self, printClass: PrintClass, queryClass: main.MainQuerys) -> None:
     self.printClass = printClass
-    self.number_of_screens = 3
+    self.number_of_screens = 4
 
     self.queryClass = queryClass
     self.themeQuery = themes.ThemeQuerys(queryClass)
     self.phrasesQuery = phrases.PhrasesQuerys(queryClass)
+    self.answerQuestionsQuery = answerQuestions.AnswerQuestionQuery(queryClass)
 
   def access(self, screen):
     screens = {
       '1': self.training,
-      '2': self.query,
-      '3': self.add_theme
+      '2': self.answerQuestion,
+      '3': self.query,
+      '4': self.add_theme
     }
 
     screens[str(screen)]()
@@ -28,6 +31,10 @@ class MainScreen:
     phrasesScreen.execute()
 
   
+  def answerQuestion(self):
+    answerQuestionsScreen = AnswerQuestionsScreen(self)
+    answerQuestionsScreen.execute()
+
   def query(self):
     self.printClass.clean_screen()
 
