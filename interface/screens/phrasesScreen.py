@@ -1,6 +1,9 @@
+from utils.information import Information
 from utils.similary import Similary
+from utils.analysis import WordForDay
+from utils.information import Information
 from utils.commands import the_command_is_an_quit
-from utils.quantity import get_average_size
+from utils.quantity import get_average_size, number_of_character
 import random, time
 
 class PhrasesScreen:
@@ -10,7 +13,12 @@ class PhrasesScreen:
     self._theme = 'Random Theme'
     self._type = 1
     self.phrases_make_today = self.window.phrasesQuery.select_all_phrases_today()
+
     self.all_phrases = [r[1] for r in self.window.phrasesQuery.select_all()]
+
+    self.information = Information(self.window.queryClass)
+    self.wordForDay = WordForDay(self.window.phrasesQuery)
+
 
   def execute(self) -> None:
     frequency = 0
@@ -32,12 +40,16 @@ class PhrasesScreen:
 
       total_phrases = self.window.phrasesQuery.number_of_rows()
 
+      revision_words = [w[0] for w in self.wordForDay.get_words()][:6]
+
       print(f'Tema: {row_theme[1]}')
       print()
       print(f'Frases já feitas: {total_phrases}')
       print(f'Frases feitas hoje: {len(self.phrases_make_today)}')
+      print(f'Número de caracteres feito hoje: {number_of_character(self.phrases_make_today)}')
       print(f'Índice frequência da última frase: {frequency}')
       print(f'Média de tamanho das frases hoje: {get_average_size(self.phrases_make_today)}')
+      print(f'Palavras a serem revisadas: {" - ".join(revision_words)}')
       print()
 
       if self._type == 1:
@@ -80,7 +92,7 @@ class PhrasesScreen:
       self.window.phrasesQuery.insert(phrase, int(row_theme[0]))
       self.phrases_make_today.append(phrase)
 
-      frequency = self.compare(self.all_phrases, phrase)
+      frequency = self.compare(phrase)
 
 
   def select_a_context_phrase(self, threshold: int) -> str:
@@ -91,8 +103,8 @@ class PhrasesScreen:
     return random.choice(all_phrases_selected)
 
 
-  def compare(self, list_of_sentences: list, sentence: str) -> int:
-    self.similary = Similary(list_of_sentences)
+  def compare(self, sentence: str) -> int:
+    self.similary = Similary(self.information)
 
     x, y = self.similary.compare(sentence)
 
