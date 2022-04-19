@@ -8,7 +8,8 @@ class WordForDay:
   def __init__(self, phrasesQuerys: PhrasesQuerys) -> None:
     self.phrasesQuerys = phrasesQuerys
     self.now = datetime.timestamp(datetime.now())
-
+    
+    nltk.download('punkt')
     nltk.download('averaged_perceptron_tagger')
 
     self._define_verbs_and_nouns()

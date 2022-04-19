@@ -15,9 +15,9 @@ class Information(PhrasesQuerys):
     return sentence.replace('?', '').replace('!', '').lower().strip()
 
   # Definindo a frequência de palavras
-  def frequency_of_words(self) -> list:
+  def frequency_of_words(self) -> None:
     for s in self.sentences:
-      for w in self._format_sentence(s).split(' '):
+      for w in self._format_sentence(s[1]).split(' '):
         if w not in self.stop_words:
           try:
             self.frequency[w] += 1

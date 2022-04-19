@@ -4,6 +4,7 @@ from utils.analysis import WordForDay
 from utils.information import Information
 from utils.commands import the_command_is_an_quit
 from utils.quantity import get_average_size, number_of_character
+from utils.speak import tts_and_play_audio
 import random, time
 
 class PhrasesScreen:
@@ -94,6 +95,8 @@ class PhrasesScreen:
 
       frequency = self.compare(phrase)
 
+      tts_and_play_audio(phrase)
+
 
   def select_a_context_phrase(self, threshold: int) -> str:
     all_row_phrases = self.window.phrasesQuery.select_all()
@@ -104,6 +107,7 @@ class PhrasesScreen:
 
 
   def compare(self, sentence: str) -> int:
+    self.information.frequency_of_words()
     self.similary = Similary(self.information)
 
     x, y = self.similary.compare(sentence)
