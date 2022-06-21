@@ -1,0 +1,6 @@
+nltk
+PyAudio
+SpeechRecognition
+unidecode
+gtts
+playsound
