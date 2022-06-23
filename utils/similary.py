@@ -1,4 +1,7 @@
+import jellyfish as jf
+
 from utils.information import Information
+from unidecode import unidecode
 
 class Similary:
   def __init__(self, information: Information) -> None:
@@ -17,3 +20,9 @@ class Similary:
           pass
 
     return frequency, words
+
+def levenshtein_method(str1: str, str2: str):
+  str1 = unidecode(str1.lower())
+  str2 = unidecode(str2.lower())
+  
+  return jf.levenshtein_distance(str1, str2)

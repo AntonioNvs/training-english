@@ -11,11 +11,12 @@ def text_to_speech(text: str) -> None:
   tts.save(file)
 
 
-def speech_to_text() -> str:
+def speech_to_text(sentence: str) -> str:
   r = sr.Recognizer()
 
   with sr.Microphone() as source:
     r.adjust_for_ambient_noise(source)
+
     audio = r.listen(source)
 
   try:

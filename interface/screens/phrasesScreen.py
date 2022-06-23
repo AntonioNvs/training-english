@@ -1,5 +1,6 @@
+from cmath import phase
 from utils.information import Information
-from utils.similary import Similary
+from utils.similary import Similary, levenshtein_method
 from utils.analysis import WordForDay
 from utils.information import Information
 from utils.commands import the_command_is_an_quit
@@ -47,7 +48,6 @@ class PhrasesScreen:
       print(f'Tema: {row_theme[1]}')
       print()
       print(f'Frases já feitas: {total_phrases}')
-      print(f'Frases feitas hoje: {len(self.phrases_make_today)}')
       print(f'Número de caracteres feito hoje: {number_of_character(self.phrases_make_today)}')
       print(f'Índice frequência da última frase: {frequency}')
       print(f'Média de tamanho das frases hoje: {get_average_size(self.phrases_make_today)}')
@@ -66,6 +66,7 @@ class PhrasesScreen:
       else:
         self.error('Esse tipo não existe. Colocando tipo 1.')
         self._type = 1
+        continue
 
       phrase = input(' ')
 
@@ -89,7 +90,7 @@ class PhrasesScreen:
 
       if the_command_is_an_quit(phrase): break
 
-      if len(phrase) < 5: continue
+      if len(phrase) < 10: continue
       
       self.window.phrasesQuery.insert(phrase, int(row_theme[0]))
       self.phrases_make_today.append(phrase)
@@ -99,12 +100,15 @@ class PhrasesScreen:
       tts_and_play_audio(phrase)
 
       print()
-      print("You say:")
-      print(" " + speech_to_text())
+      # print("Repita sua frase: ", end="")
 
-      time.sleep(3)
+      # recognized_sentence = speech_to_text(phrase)
+      # print("- " + recognized_sentence)
 
-      print("Repita sua frase: ", end="")
+      # similatiry_index = levenshtein_method(recognized_sentence, phrase)
+      # print(f"- Índice de diferença: {similatiry_index}")
+
+      # time.sleep(len(phrase)**(1/2))
 
 
   def select_a_context_phrase(self, threshold: int) -> str:

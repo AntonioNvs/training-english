@@ -2,7 +2,7 @@
 e processos estatísticos para usufruir o melhor possível de um aprendizado direcionado.**
 
 ## To-do
- - [ ] Trocar a forma de limpar a tela do Terminal
+ - [X] Trocar a forma de limpar a tela do Terminal
  - [ ] Automatizar o upload de dados do banco de dados.
  - [ ] Simplificar a interface
    - [ ] Mudar a forma de impressão das informações na tela (uso de uma lib para tanto)
@@ -18,6 +18,8 @@ e processos estatísticos para usufruir o melhor possível de um aprendizado dir
      - [ ] Índice de dificuldade da frase
      - [ ] Similaridade do escrito com o reconhecimento de voz feito
    - [ ] Para o sistema poliglota, transformar o banco de dados para aceitar multilinguagens
+ - [] Adicionar o limite de tempo no reconhecimento
+ - [X] Sistema de similaridade com o escrito e o falado.
  - [ ] Interface de seleção da linguagem atual trabalhada
  - [ ] Tela para repetir processos de reconhecimento de voz até que a frase detectada seja muito próxima da do ideal.
 

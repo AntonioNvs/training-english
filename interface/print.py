@@ -5,7 +5,7 @@ class PrintClass:
     pass
   
   def clean_screen(self):
-    os.system("cls")
+    os.system("clear")
 
   def print_big_name(self):
     print('                                                                                                ')
