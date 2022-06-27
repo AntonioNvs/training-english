@@ -1,4 +1,7 @@
-from cmath import phase
+import colorama
+colorama.init(autoreset=True)
+
+from colorama import Fore
 from utils.information import Information
 from utils.similary import Similary, levenshtein_method
 from utils.analysis import WordForDay
@@ -12,7 +15,6 @@ import random, time
 class PhrasesScreen:
   def __init__(self, window) -> None:
     self.window = window
-
     self._theme = 'Random Theme'
     self._type = 1
     self.phrases_make_today = self.window.phrasesQuery.select_all_phrases_today()
@@ -28,7 +30,8 @@ class PhrasesScreen:
 
     while True:
       self.window.printClass.clean_screen()
-
+      self.phrases_make_today = self.window.phrasesQuery.select_all_phrases_today()
+      
       # Selecionando o tema de acordo com o tipo desejado
       if self._theme == 'random':
         row_theme = self.window.themeQuery.select_a_random_theme()
@@ -45,13 +48,13 @@ class PhrasesScreen:
 
       revision_words = [w[0] for w in self.wordForDay.get_words()][:6]
 
-      print(f'Tema: {row_theme[1]}')
+      print(Fore.RED + f'Tema: {row_theme[1]}')
       print()
       print(f'Frases já feitas: {total_phrases}')
-      print(f'Número de caracteres feito hoje: {number_of_character(self.phrases_make_today)}')
+      print(Fore.RED + f'Número de caracteres feito hoje: {number_of_character(self.phrases_make_today)}')
       print(f'Índice frequência da última frase: {frequency}')
       print(f'Média de tamanho das frases hoje: {get_average_size(self.phrases_make_today)}')
-      print(f'Palavras a serem revisadas: {" - ".join(revision_words)}')
+      # print(f'Palavras a serem revisadas: {" - ".join(revision_words)}')
       print()
 
       if self._type == 1:
@@ -68,7 +71,7 @@ class PhrasesScreen:
         self._type = 1
         continue
 
-      phrase = input(' ')
+      phrase = input(Fore.GREEN + '- ')
 
       # Se começar com uma interrogação, quer dizer uma prerrogativa para alteração do do tema ou do tipo
       if phrase[0] == '?':
@@ -93,13 +96,10 @@ class PhrasesScreen:
       if len(phrase) < 10: continue
       
       self.window.phrasesQuery.insert(phrase, int(row_theme[0]))
-      self.phrases_make_today.append(phrase)
 
       frequency = self.compare(phrase)
 
       tts_and_play_audio(phrase)
-
-      print()
       # print("Repita sua frase: ", end="")
 
       # recognized_sentence = speech_to_text(phrase)
