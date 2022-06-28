@@ -7,11 +7,11 @@ class ThemeQuerys:
     self._querys = querys
     self.name_table = 'themes'
 
-  def insert(self, name: str) -> int:
+  def insert(self, name: str, language_id: int) -> int:
     return self._querys.insert(self.name_table,
       f"""
-        INSERT INTO {self.name_table} (name, date) VALUES 
-        ('{name}', '{datetime.now()}')
+        INSERT INTO {self.name_table} (name, language_id, date) VALUES 
+        ('{name}', {language_id}, '{datetime.now()}')
       """
     )
 

@@ -3,7 +3,7 @@ import os
 
 class Database:
   def __init__(self):
-    self.path_database = os.path.abspath(__file__).replace('database.py', '') + 'database.db'
+    self.path_database = os.path.abspath(__file__).replace('database.py', '') + 'database2.db'
 
     self.create_init_tables()
     self.close_database()
@@ -13,10 +13,21 @@ class Database:
 
     self.cursor.execute(
       """
+        CREATE TABLE IF NOT EXISTS languages (
+          id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+          name varchar(200) NOT NULL
+        );
+      """
+    )
+
+    self.cursor.execute(
+      """
         CREATE TABLE IF NOT EXISTS themes (
           id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
           name varchar(200) NOT NULL,
-          date DATETIME NOT NULL
+          language_id INTEGER NOT NULL,
+          date DATETIME NOT NULL,
+          FOREIGN KEY(language_id) REFERENCES languages(id)
         );
       """
     )

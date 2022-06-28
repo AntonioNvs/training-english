@@ -27,6 +27,16 @@ class MainScreen:
     sleep(0.2)
 
   def training(self):
+    themes = self.themeQuery.select()
+    exists = True
+
+    for theme in themes:
+      if theme[1] == 'Random Theme':
+        exists = False
+
+    if exists:
+      self.themeQuery.insert("Random Theme", 1)
+
     phrasesScreen = PhrasesScreen(self)
     phrasesScreen.execute()
 
@@ -67,4 +77,4 @@ class MainScreen:
 
     if the_command_is_an_quit(theme): return
 
-    self.themeQuery.insert(theme)
+    self.themeQuery.insert(theme, 1)

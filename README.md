@@ -17,7 +17,7 @@ e processos estatísticos para usufruir o melhor possível de um aprendizado dir
      - [ ] Índice de frequência
      - [ ] Índice de dificuldade da frase
      - [ ] Similaridade do escrito com o reconhecimento de voz feito
-   - [ ] Para o sistema poliglota, transformar o banco de dados para aceitar multilinguagens
+   - [X] Para o sistema poliglota, transformar o banco de dados para aceitar multilinguagens
  - [] Adicionar o limite de tempo no reconhecimento
  - [X] Sistema de similaridade com o escrito e o falado.
  - [ ] Interface de seleção da linguagem atual trabalhada
